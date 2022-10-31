@@ -1,14 +1,10 @@
-const data = require('../data/zoo_data');
+const { species } = require('../data/zoo_data');
 
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) {
     return [];
   }
-  const speciesRequired = data.species.filter((specie) => {
-    if (ids.includes(specie.id)) {
-      return specie;
-    }
-  });
+  const speciesRequired = species.filter((specie) => ids.includes(specie.id));
   return speciesRequired;
 }
 
