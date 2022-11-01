@@ -10,7 +10,7 @@ const getSchedule = (scheduleTarget) => {
     const closing = hours[scheduleTarget].close;
     if (scheduleTarget === 'Monday') {
       return ({ Monday: { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' } });
-    } return ({ scheduleTarget: { officeHour: `Open from ${opening}am until ${closing}pm`, exhibition: 0 } });
+    // } return ({ scheduleTarget: { officeHour: `Open from ${opening}am until ${closing}pm`, exhibition: 0 } });
   }
 };
 
