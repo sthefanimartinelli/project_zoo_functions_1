@@ -44,5 +44,3 @@ const getSchedule = (scheduleTarget) => {
 };
 
 module.exports = getSchedule;
-
-console.log(getSchedule('Tuesday'));
