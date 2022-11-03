@@ -3,18 +3,12 @@ const { species, hours } = require('../data/zoo_data');
 function getOfficeHours(allDays, daysAndAnimals) {
   const objVazio = {};
   allDays.forEach((day) => {
-    if (day === 'Monday') {
-      objVazio[day] = {
-        officeHour: 'CLOSED',
-        exhibition: 'The zoo will be closed!',
-      };
-    } else {
-      objVazio[day] = {
-        officeHour: `Open from ${hours[day].open}am until ${hours[day].close}pm`,
-        exhibition: daysAndAnimals[day],
-      };
-    }
+    objVazio[day] = {
+      officeHour: `Open from ${hours[day].open}am until ${hours[day].close}pm`,
+      exhibition: daysAndAnimals[day],
+    };
   });
+  objVazio.Monday = { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' };
   return objVazio;
 }
 
