@@ -1,17 +1,48 @@
-const data = require('../data/zoo_data');
+const { species, hours } = require('../data/zoo_data');
+
+function getOfficeHours(allDays, daysAndAnimals) {
+  const objVazio = {};
+  allDays.forEach((day) => {
+    if (day === 'Monday') {
+      objVazio[day] = {
+        officeHour: 'CLOSED',
+        exhibition: 'The zoo will be closed!',
+      };
+    } else {
+      objVazio[day] = {
+        officeHour: `Open from ${hours[day].open}am until ${hours[day].close}pm`,
+        exhibition: daysAndAnimals[day],
+      };
+    }
+  });
+  return objVazio;
+}
+
+function getDaysAndAnimals() {
+  const daysAndAnimals = [];
+  species.forEach((specie) => specie.availability.forEach((day) => {
+    if (!daysAndAnimals[day]) {
+      daysAndAnimals[day] = [specie.name];
+    } else {
+      daysAndAnimals[day].push(specie.name);
+    }
+  }));
+  return daysAndAnimals;
+}
 
 const getSchedule = (scheduleTarget) => {
-  // const allAnimals = species.map((specie) => specie.name);
-  // const allDays = Object.keys(hours);
-  // if (allAnimals.includes(scheduleTarget)) {
-  //   return species.find((specie) => specie.name === scheduleTarget).availability;
-  // } if (allDays.includes(scheduleTarget)) {
-  //   const opening = hours[scheduleTarget].open;
-  //   const closing = hours[scheduleTarget].close;
-  //   if (scheduleTarget === 'Monday') {
-  //     return ({ Monday: { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' } });
-  //   // } return ({ scheduleTarget: { officeHour: `Open from ${opening}am until ${closing}pm`, exhibition: 0 } });
-  // }
+  const allAnimals = species.map((specie) => specie.name);
+  const allDays = Object.keys(hours);
+  const daysAndAnimals = getDaysAndAnimals();
+  if (allAnimals.includes(scheduleTarget)) {
+    return species.find((specie) => specie.name === scheduleTarget).availability;
+  } if (!allDays.includes(scheduleTarget) || !scheduleTarget) {
+    return getOfficeHours(allDays, daysAndAnimals);
+  }
+  const day = ({ [scheduleTarget]: getOfficeHours(allDays, daysAndAnimals)[scheduleTarget] });
+  return day;
 };
 
 module.exports = getSchedule;
+
+console.log(getSchedule('Tuesday'));
