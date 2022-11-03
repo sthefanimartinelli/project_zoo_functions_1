@@ -25,4 +25,19 @@ describe('Testes da função getOpeningHours', () => {
   it('Função deve retornar erro com hora > 12', () => {
     expect(() => getOpeningHours('Ble', '12:00-PM')).toThrow('The day must be valid. Example: Monday');
   });
+  it('Função deve retornar erro quando enviar período diferente de AM e PM', () => {
+    expect(() => getOpeningHours('Thursday', '12:00-KM')).toThrow('The abbreviation must be \'AM\' or \'PM\'');
+  });
+  it('Função deve retornar erro quando enviar hora sem ser número', () => {
+    expect(() => getOpeningHours('Thursday', 'K9:00-PM')).toThrow('The hour should represent a number');
+  });
+  it('Função deve retornar erro quando enviar minutos sem ser número', () => {
+    expect(() => getOpeningHours('Thursday', '09:k0-PM')).toThrow('The minutes should represent a number');
+  });
+  it('Função deve retornar erro quando hora for maior que 12', () => {
+    expect(() => getOpeningHours('Thursday', '13:00-AM')).toThrow('The hour must be between 0 and 12');
+  });
+  it('Função deve retornar erro quando minutos for maior que 59', () => {
+    expect(() => getOpeningHours('Thursday', '09:65-AM')).toThrow('The minutes must be between 0 and 59');
+  });
 });
