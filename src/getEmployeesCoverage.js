@@ -71,3 +71,5 @@ function getEmployeesCoverage(infoObj) {
 }
 
 module.exports = getEmployeesCoverage;
+
+console.log(getEmployeesCoverage());
