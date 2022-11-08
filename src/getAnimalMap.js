@@ -67,6 +67,4 @@ function getAnimalMap(options) {
   return handleEverything(options);
 }
 
-console.log(getAnimalMap(({ includeNames: true, sorted: true })));
-
 module.exports = getAnimalMap;
